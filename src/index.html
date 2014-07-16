@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topology Generator Version 2.0</title>
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="img/favicon.png">
+    <!-- Core CSS - Include with every page -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <!--<link href="css/bootstrap-responsive.css" rel="stylesheet">-->
+    <!--<link href="css/layout.css" rel="stylesheet">-->
+    <!-- SB Admin CSS - Include with every page -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+     <!--Core Scripts - Include with every page -->
+    <!--<script src="js/jquery.min.js"></script>-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/fabric.js"></script>
+    <script src="js/prism.js"></script>
+    <script src="js/master.js"></script>
+    <script src='js/knockout-3.1.0.js'></script>
+    <script src="js/knockout-bootstrap.min.js"></script>
+    <script src="js/XMLWriter-1.0.0.js"></script>
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script><!JSAPI>
+    <!-- SB Admin Scripts - Include with every page -->
+    <script src="js/sb-admin.js"></script>
+    <!-- Self Define Script-->
+    <script src="js/tooltip_popover.js"></script>
+    <script src="js/Generator_Basic.js"></script>
+    <script src="js/Generator_LinkStatus.js"></script>
+    <script src="js/Generator_ComponentList.js"></script>
+    <script src="js/Generator_Canvas.js"></script>
+    <script src="js/Generator_Sidemenu.js"></script>
+    <script src="js/Generator_ActionsPanel.js"></script>
+    <script src="js/Generator_Modal.js"></script>
+    <script src="js/Generator_SaveRequestXml.js"></script>
+    <script src="js/Generator_LoadRequestXml.js"></script>
+    <script src="js/Generator_SaveLoadExec.js"></script>
+    <script src="js/Generator_Datepicker.js"></script>
+    <script src="js/websocket.js"></script>
+    <script src="js/parseADXml.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Topology Generator v2.0</a>
+            </div>
+            <!-- /.navbar-header -->
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-external-link fa-2x"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                            <a href="../Monitor/index.html">
+                                <div>
+                                    <strong>Monitor</strong>
+                                </div>
+                                <div>Click and Link to Topology Monitor</div>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+            <div class="navbar-default navbar-static-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a onclick="rollToTop()"><i class="fa fa-level-up fa-fw"></i> Get To Top</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-cloud fa-fw"></i> Create Host<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a id="create_host" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" title="" data-content="">Host<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level" id="create_host_third">
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a id="create_vhost" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" title="" data-content="">Virtual Host<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level" id="create_vhost_third">
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a id="create_sd_host" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" title="" data-content="">Self-Define Host<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level" id="create_sd_host_third">
+                                        <li>
+                                            <a id="create_sd_vhost" class='glyphicon glyphicon-hand-right' data-trigger="click" data-container="body" data-toggle="popover" data-placement="right" title="" data-content="">Virtual_Host</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-code-fork fa-fw"></i> Create Switch<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a id="create_switch" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" title="" data-content="">Switch<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level" id="create_switch_third">
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a id="create_vswitch" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" title="" data-content="">Virtual Switch<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level" id="create_vswitch_third">
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a id="create_oswitch" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" title="" data-content="">Openflow Switch<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level" id="create_oswitch_third">
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a id="create_ovswitch" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" title="" data-content="">Virtual Openflow Switch<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level" id="create_ovswitch_third">
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a id="create_sd_switch" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" title="" data-content="">Self-Define Switch<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level" id="create_sd_switch_third">
+                                        <li>
+                                            <a id="create_sd_vswitch" class='glyphicon glyphicon-hand-right' data-trigger="click" data-container="body" data-toggle="popover" data-placement="right" title="" data-content="">Virtual_Switch</span></a>
+                                        </li>
+                                        <li>
+                                            <a id="create_sd_ovswitch" class='glyphicon glyphicon-hand-right' data-trigger="click" data-container="body" data-toggle="popover" data-placement="right" title="" data-content="">Virtual_Openflow_Switch</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-desktop fa-fw"></i> Create Controller<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a id="create_controller" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" title="" data-content="">Controller<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level" id="create_controller_third">
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a id="create_vcontroller" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" title="" data-content="">Virtual Controller<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level" id="create_vcontroller_third">
+                                    </ul>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                    <!-- /#side-menu -->
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="btn-group page-header">
+                        <button onclick="setSelectType(0)" class="btn btn-default" type="button">
+                            <img src="./img/generator_action/select.png" height="128" width="128"/>
+                            <h4>Select</h4>
+                        </button>
+                        <button onclick="setSelectType(2)" class="btn btn-default" type="button">
+                            <img src="./img/generator_action/decomponent.png" height="128" width="128"/>
+                            <h4>Component Delete</h4>
+                        </button>
+                        <button onclick="setSelectType(3)" class="btn btn-default" type="button">
+                            <img src="./img/generator_action/link.png" height="128" width="128"/>
+                            <h4>Link</h4>
+                        </button>
+                        <button onclick="setSelectType(4)" class="btn btn-default" type="button">
+                            <img src="./img/generator_action/delink.png" height="128" width="128"/>
+                            <h4>Delete Link</h4>
+                        </button>
+                        <button onclick="setSelectType(5)" class="btn btn-default" type="button" data-toggle="modal" data-target="#CreateSlice">
+                            <img src="./img/generator_action/group.png" height="128" width="128"/>
+                            <h4>Make Slice</h4>
+                        </button>
+                        <div class="modal fade" id="CreateSlice" tabindex="-1" role="dialog" aria-labelledby="CreateSliceLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="CreateSliceLabel">Make Slice</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <label for="SliceName">Slice Name</label>
+                                        <input type="text" class="form-control" id="SliceName" placeholder="Enter here">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" onclick="addToSlice()">Make Slice</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="updateModalSliceList()" class="btn btn-default" type="button" data-toggle="modal" data-target="#DeleteSlice">
+                            <img src="./img/generator_action/degroup.png" height="128" width="128"/>
+                            <h4>Delete Slice</h4>
+                        </button>
+                        <div class="modal fade" id="DeleteSlice" tabindex="-1" role="dialog" aria-labelledby="DeleteSliceLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="DeleteSliceLabel">Delete Slice</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <label for="SliceName">Delete Slice Name</label>
+                                        <select class="form-control" id="DeSliceSelect"></select>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" onclick="deleteSlice()">Delete Slice</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="setSelectType(7)" class="btn btn-default" type="button" data-toggle="modal" data-target="#SaveRequest">
+                            <img src="./img/generator_action/save.png" height="128" width="128"/>
+                            <h4>Save Request</h4>
+                        </button>
+                        <div class="modal fade" id="SaveRequest" tabindex="-1" role="dialog" aria-labelledby="DeleteSliceLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="SaveRequestLabel">Save Request</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <label for="SaveRequestInput">Save Request</label>
+                                        <input type="text" class="form-control" id="SaveRequestInput" placeholder="Enter here">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" onclick="SaveRequestToServer()">Save Request</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="LoadRQListfromServer()" class="btn btn-default" type="button" data-toggle="modal" data-target="#LoadRequest" >
+                            <img src="./img/generator_action/load.png" height="128" width="128"/>
+                            <h4>Load Request</h4>
+                        </button>
+                        <div class="modal fade" id="LoadRequest" tabindex="-1" role="dialog" aria-labelledby="DeleteSliceLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="LoadRequestLabel">Load Request</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <label for="LoadRequestSelect">Load Request</label>
+                                        <select class="form-control" id="LoadRequestSelect"></select>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" onclick="LoadRequestfromServer()">Load Request</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="LoadRQListfromServer()" class="btn btn-default" type="button" data-toggle="modal" data-target="#Schedule">
+                            <img src="./img/generator_action/schedule.png" height="128" width="128"/>
+                            <h4>Schedule</h4>
+                        </button>
+                        <div class="modal fade" id="Schedule" tabindex="-1" role="dialog" aria-labelledby="ScheduleLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="ScheduleLabel">Choose Date for Scheduling</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="well">
+                                            <label for="ScheduleSelect">Select Date & Modify Time</label>
+                                            <div id="ScheduleSelect" class="input-group input-append date">
+                                                <input class="form-control" data-format="yyyy/MM/dd/hh/mm" type="text"> </input>
+                                                <span class="input-group-btn add-on ">
+                                                    <button class="btn btn-default" ><i class="glyphicon glyphicon-calendar"></i></button>
+                                                </span>
+                                            </div><!-- /input-group -->
+                                        </div>
+                                        <div class="well">
+                                            <label for="ScheduleSelect">Select Request for Scheduling</label>
+                                            <div class="input-group input-append date">
+                                                <select class="form-control" id="ScheduleRequestSelect"></select>
+                                            </div><!-- /input-group -->
+                                        </div>
+
+                                        <div class="alert alert-info alert-dismissable" id="ScheduleFormatStatus">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                            <h4>Date & Time Format is　yyyy/MM/dd/hh/mm</h4>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" onclick="sendScheduleToServer()">Schedule</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Topology Canvas Panel
+                            <div class="pull-right">
+                                <select class="form-control" id="SliceSelect" onchange="changeSliceSelect()">
+                                    <option value="-1">Overview</option>
+                                    <option value="-2">UnSlice</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <canvas id="c" width="783" height="600" style="border:1px solid #ccc" ></canvas>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Unuse Component Panel
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <table id="Generator_ComponetList" class="table table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Component Name</th>
+                                                    <th>Component Type</th>
+                                                    <th>NIC</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.table-responsive -->
+                                </div>
+                                <!-- /.col-lg-4 (nested) -->
+                                <div class="col-lg-8">
+                                    <div id="morris-bar-chart"></div>
+                                </div>
+                                <!-- /.col-lg-8 (nested) -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-8 -->
+                <div class="col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bell fa-fw"></i> Actions Panel
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="ActionsPanel">
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Server Connect Status & Message
+                        </div>
+                        <div class="panel-body">
+                            <div class="alert alert-danger alert-dismissable" id="GeneratorLinkStatus">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <h4></h4>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-4 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+</body>
+<script>
+    //Initialize
+    var $j = jQuery.noConflict();
+    var selectType=-1;
+    var selectComponentIndex=-1;
+    var listIconURL=[];
+    listIconURL[0]=['./img/component_icon/host.png','./img/component_icon/host_v.png'];
+    listIconURL[1]=['./img/component_icon/switch.png','./img/component_icon/switch_of.png', './img/component_icon/switch_v.png', './img/component_icon/switch_v_of.png'];
+    listIconURL[2]=['./img/component_icon/host_of.png', './img/component_icon/host_v_of.png'];
+    var listIcon_mURL=[];
+    listIcon_mURL[0]=['./img/component_icon/host_m.png','./img/component_icon/host_v_m.png'];
+    listIcon_mURL[1]=['./img/component_icon/switch_m.png','./img/component_icon/switch_of_m.png', './img/component_icon/switch_v_m.png', './img/component_icon/switch_v_of_m.png'];
+    listIcon_mURL[2]=['./img/component_icon/host_of_m.png', './img/component_icon/host_v_of_m.png'];
+    var canvas=document.getElementById('c');
+    const c_width=canvas.width;
+    const c_height=canvas.height;
+    var websocket;
+    //onReady()
+    google.setOnLoadCallback(connectServer_LoadAD());
+    google.setOnLoadCallback(initial_tooltip_popover());
+    google.setOnLoadCallback(initialize());
+    var componentBucket=Array();
+    var componentData=new Array();
+    var AdcomponentData=new Array();
+    var SliceBucket=new Array();
+    var linkBucket=Array();
+    var requestBucket=Array();
+    var createSDType=-1;
+    var selfdefineNumber=0;
+    var hostNumber=1;
+    var switchNumber=1;
+    var controllerNumber=1;
+    var canvas = this.__canvas = new fabric.Canvas('c', { selection: true });
+    fabric.Object.prototype.originX = fabric.Object.prototype.originY = 'center';
+    //---------------------------------Canvas Control---------------------------------
+    canvas.on('object:moving', function(e)//use Object Moving
+    {
+        var p = e.target;
+        if(p.type=='image')
+        {
+            moveImage(p);
+        }
+        else if(p.type=='group')
+        {
+            var group=p.getObjects();
+            for(i=0;i<group.length;i++)
+            {
+                var top=p.top+p.getObjects()[i].top;
+                var left=p.left+p.getObjects()[i].left;
+                moveGroup(group[i],top,left);
+            }
+            canvas.renderAll();
+        }
+    });
+    canvas.on('mouse:down', function(options)//Click on the Canvas
+    {
+        if(selectType==0)//select
+        {
+            var p = options.target;
+            if(p!=null)
+            {
+                if(p.type=='image')
+                {
+                    showActionsPanel(p.MainComponent.dataInfo.ID);
+                    console.log(p.MainComponent);
+                }
+                else if(p.type=='line')
+                {
+                    console.log(p);
+                }
+                else if(p.type=='group')
+                {
+                }
+            }
+        }
+        else if(selectType==1)//Use Side Menu
+        {
+            var mouse = canvas.getPointer(options.e);
+            createComponent_MouPos(selectComponentIndex,mouse.x,mouse.y);
+            selectType=0;
+            selectComponentIndex=-1;
+        }
+        else if(selectType==2)//DeleteComponent
+        {
+            if(options.target!=null&&options.target.type=='image')
+            {
+                chooseDeleteComponent(options.target.MainComponent.componentIndex);
+                selectType=0;
+            }
+        }
+        else if(selectType==3);//Add Link
+        else if(selectType==4)//Delete Link
+        {
+            if(options.target!=null&&options.target.type=='line')
+            {
+                deleteLinkIndex(options.target.linkIndex);
+                selectType=0;
+            }
+        }
+        else if(createSDType!=-1)//Create Self Define Component
+        {
+            var mouse = canvas.getPointer(options.e);
+            createSDComponent_MouPos(createSDType,mouse.x,mouse.y);
+            createSDType=-1;
+            updateAll();
+        }
+    });
+    //--------------------------------/Canvas Control---------------------------------
+</script>
+</html>

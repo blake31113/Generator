@@ -1,0 +1,67 @@
+14/06/21 Topology Generator v2.0
+#Complete
+1.basic framework complete
+2.left side wrapper
+    -少能產生的component為何(建立在third level list下)
+    -學長要追加的是什麼?
+#Future Object
+@-Server Connect
+@-Server Connect Status Display
+@-Load Advertisement
+@-Update Unuse Component Panel
+-Create Component Bucket
+-De Component
+-Select
+-Canvas Function
+-Can Create On Canvas with Slice System
+-Action Panel
+-Link
+-DeLink
+-Save
+-Load temporary Request
+-Execute (Pass the time & Request File Name)
+----------------------------------------------------------------------------------------------------------------
+14/06/22 Topology Generator v2.0
+
+#Complete
+@Server Connect
+@Server Connect Status Display
+@Load Advertisement
+@Update Unuse Component Panel
+@Create Component Bucket
+@De Component
+@Select
+@Canvas Function
+@Action Panel
+@少能產生的component為何(建立在third level list下)
+
+#Future Object
+-學長要追加的是什麼?
+-Can Create On Canvas with Slice System
+-Link
+-DeLink
+-Save
+-Load temporary Request
+-Execute (Pass the time & Request File Name)
+
+----------------------------------------------------------------------------------------------------------------
+14/06/23 Topology Generator v2.0
+
+#Complete
+@Can Create On Canvas with Slice System
+@Link
+@DeLink
+@Save
+@Load temporary Request
+
+#Future Object
+-學長要追加的是什麼?
+-Execute (Pass the time & Request File Name)
+----------------------------------------------------------------------------------------------------------------
+14/06/24 Topology Generator v2.0
+
+#Complete
+@學長要追加的Virtual Switch?
+@Execute (Pass the time & Request File Name)
+
+#Future Object
